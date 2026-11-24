@@ -1,1 +1,304 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AnimeVerse — sua plataforma completa sobre o universo dos animes.">
+  <title>AnimeVerse — Explore o Universo dos Animes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== MENU DE NAVEGAÇÃO ===== -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="#" class="logo" data-nav="inicio">
+        <span class="logo-icon">⛩</span>
+        <span class="logo-text">Anime<span>Verse</span></span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#" class="nav-link active" data-nav="inicio">Início</a>
+        <a href="#" class="nav-link" data-nav="animes">Animes</a>
+        <a href="#" class="nav-link" data-nav="temporadas">Temporadas</a>
+        <a href="#" class="nav-link" data-nav="generos">Gêneros</a>
+        <a href="#" class="nav-link" data-nav="personagens">Personagens</a>
+        <a href="#" class="nav-link" data-nav="noticias">Notícias</a>
+        <a href="#" class="nav-link" data-nav="favoritos">Favoritos <span class="fav-count-badge" id="navFavCount">0</span></a>
+        <a href="#" class="nav-link" data-nav="sobre">Sobre nós</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Buscar anime..." autocomplete="off">
+          <button class="search-btn" aria-label="Pesquisar">🔍</button>
+          <div class="search-results" id="searchResults"></div>
+        </div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">☀️</button>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== PÁGINA INICIAL ===== -->
+    <section class="page active" id="page-inicio">
+      <div class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <span class="hero-tag">⭐ Destaque da semana</span>
+          <h1 class="hero-title" id="heroTitle"></h1>
+          <div class="hero-meta" id="heroMeta"></div>
+          <p class="hero-synopsis" id="heroSynopsis"></p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="heroBtn">Saiba mais</button>
+            <button class="btn btn-outline" id="heroFavBtn">♡ Adicionar aos favoritos</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <section class="section-block reveal">
+          <div class="section-header">
+            <h2>🔥 Populares</h2>
+            <button class="btn-link" data-nav="animes">Ver todos →</button>
+          </div>
+          <div class="cards-grid" id="gridPopulares"></div>
+        </section>
+
+        <section class="section-block reveal">
+          <div class="section-header">
+            <h2>🏆 Mais bem avaliados</h2>
+            <button class="btn-link" data-nav="animes">Ver todos →</button>
+          </div>
+          <div class="cards-grid" id="gridTop"></div>
+        </section>
+
+        <section class="section-block reveal">
+          <div class="section-header">
+            <h2>🆕 Lançamentos recentes</h2>
+            <button class="btn-link" data-nav="animes">Ver todos →</button>
+          </div>
+          <div class="cards-grid" id="gridRecentes"></div>
+        </section>
+
+        <section class="section-block reveal">
+          <div class="section-header">
+            <h2>💜 Recomendados para você</h2>
+            <button class="btn-link" data-nav="animes">Ver todos →</button>
+          </div>
+          <div class="cards-grid" id="gridRecomendados"></div>
+        </section>
+
+        <section class="section-block reveal">
+          <div class="section-header">
+            <h2>📈 Em alta</h2>
+            <button class="btn-link" data-nav="animes">Ver todos →</button>
+          </div>
+          <div class="cards-grid" id="gridAlta"></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ===== CATÁLOGO DE ANIMES ===== -->
+    <section class="page" id="page-animes">
+      <div class="container">
+        <div class="page-title reveal">
+          <h1>Catálogo de Animes</h1>
+          <p>Explore, filtre e ordene toda a nossa coleção.</p>
+        </div>
+
+        <div class="filters-bar reveal">
+          <div class="filter-group filter-search">
+            <input type="text" id="catalogSearch" placeholder="Nome do anime...">
+          </div>
+          <div class="filter-group">
+            <label>Gênero</label>
+            <select id="filterGenero"><option value="">Todos</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Ano</label>
+            <select id="filterAno"><option value="">Todos</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Avaliação mínima</label>
+            <select id="filterNota">
+              <option value="">Qualquer</option>
+              <option value="9">9.0+</option>
+              <option value="8.5">8.5+</option>
+              <option value="8">8.0+</option>
+              <option value="7">7.0+</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Status</label>
+            <select id="filterStatus">
+              <option value="">Todos</option>
+              <option value="Em lançamento">Em lançamento</option>
+              <option value="Finalizado">Finalizado</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Ordenar por</label>
+            <select id="sortSelect">
+              <option value="popularidade">Popularidade</option>
+              <option value="nota">Avaliação</option>
+              <option value="anoDesc">Ano (mais novo)</option>
+              <option value="anoAsc">Ano (mais antigo)</option>
+              <option value="titulo">Título (A–Z)</option>
+            </select>
+          </div>
+          <button class="btn btn-ghost" id="clearFilters">Limpar filtros</button>
+        </div>
+
+        <p class="results-info" id="resultsInfo"></p>
+        <div class="cards-grid catalog-grid" id="catalogGrid"></div>
+        <div class="empty-state" id="catalogEmpty" hidden>
+          <p>😕 Nenhum anime encontrado com esses filtros.</p>
+          <button class="btn btn-primary" id="emptyClear">Limpar filtros</button>
+        </div>
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </section>
+
+    <!-- ===== TEMPORADAS ===== -->
+    <section class="page" id="page-temporadas">
+      <div class="container">
+        <div class="page-title reveal">
+          <h1>Temporadas</h1>
+          <p>Animes organizados por temporada de lançamento no Japão.</p>
+        </div>
+        <div class="season-select reveal">
+          <label for="seasonSelect">Escolha a temporada:</label>
+          <select id="seasonSelect"></select>
+        </div>
+        <div class="cards-grid" id="seasonGrid"></div>
+      </div>
+    </section>
+
+    <!-- ===== GÊNEROS ===== -->
+    <section class="page" id="page-generos">
+      <div class="container">
+        <div class="page-title reveal">
+          <h1>Gêneros</h1>
+          <p>Clique em um gênero para explorar animes relacionados.</p>
+        </div>
+        <div class="genres-grid" id="genresGrid"></div>
+      </div>
+    </section>
+
+    <!-- ===== PERSONAGENS ===== -->
+    <section class="page" id="page-personagens">
+      <div class="container">
+        <div class="page-title reveal">
+          <h1>Personagens</h1>
+          <p>Os personagens mais icônicos do universo dos animes.</p>
+        </div>
+        <div class="characters-grid" id="charactersGrid"></div>
+      </div>
+    </section>
+
+    <!-- ===== NOTÍCIAS ===== -->
+    <section class="page" id="page-noticias">
+      <div class="container">
+        <div class="page-title reveal">
+          <h1>Notícias</h1>
+          <p>Lançamentos, anúncios e novidades do mundo dos animes.</p>
+        </div>
+        <div class="news-grid" id="newsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ===== FAVORITOS ===== -->
+    <section class="page" id="page-favoritos">
+      <div class="container">
+        <div class="page-title reveal">
+          <h1>Meus Favoritos</h1>
+          <p>Sua lista pessoal de animes salvos neste navegador.</p>
+        </div>
+        <div class="cards-grid" id="favoritesGrid"></div>
+        <div class="empty-state" id="favoritesEmpty">
+          <p>💔 Você ainda não adicionou nenhum anime aos favoritos.</p>
+          <button class="btn btn-primary" data-nav="animes">Explorar catálogo</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SOBRE NÓS ===== -->
+    <section class="page" id="page-sobre">
+      <div class="container narrow">
+        <div class="page-title reveal">
+          <h1>Sobre nós</h1>
+        </div>
+        <div class="about-card reveal">
+          <p>O <strong>AnimeVerse</strong> nasceu da paixão pela cultura japonesa e pela arte dos animes. Nossa missão é reunir, em um só lugar, catálogos completos, temporadas, personagens e notícias — com uma experiência moderna, rápida e imersiva.</p>
+          <p>Somos fãs, assim como você. Por isso, valorizamos a comunidade: sua lista de favoritos fica salva no seu navegador, sem cadastro e sem complicação.</p>
+          <div class="about-stats">
+            <div class="stat"><strong id="statAnimes">0</strong><span>Animes catalogados</span></div>
+            <div class="stat"><strong id="statGeneros">0</strong><span>Gêneros</span></div>
+            <div class="stat"><strong id="statPersonagens">0</strong><span>Personagens</span></div>
+            <div class="stat"><strong id="statNoticias">0</strong><span>Notícias</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DETALHE DO ANIME ===== -->
+    <section class="page" id="page-detalhe">
+      <div id="detailContent"></div>
+    </section>
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <a href="#" class="logo" data-nav="inicio">
+          <span class="logo-icon">⛩</span>
+          <span class="logo-text">Anime<span>Verse</span></span>
+        </a>
+        <p>Sua plataforma definitiva para descobrir, acompanhar e se apaixonar pelo universo dos animes.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Twitter/X">𝕏</a>
+          <a href="#" aria-label="Instagram">📷</a>
+          <a href="#" aria-label="YouTube">▶️</a>
+          <a href="#" aria-label="Discord">💬</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <a href="#" data-nav="inicio">Início</a>
+        <a href="#" data-nav="animes">Animes</a>
+        <a href="#" data-nav="temporadas">Temporadas</a>
+        <a href="#" data-nav="generos">Gêneros</a>
+      </div>
+      <div class="footer-col">
+        <h4>Comunidade</h4>
+        <a href="#" data-nav="personagens">Personagens</a>
+        <a href="#" data-nav="noticias">Notícias</a>
+        <a href="#" data-nav="favoritos">Favoritos</a>
+        <a href="#" data-nav="sobre">Sobre nós</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#" id="privacyLink">Política de Privacidade</a>
+        <a href="#" id="termsLink">Termos de Uso</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AnimeVerse. Projeto demonstrativo. Todas as imagens e marcas pertencem aos seus respectivos estúdios e criadores.</p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">▲</button>
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
